@@ -12,10 +12,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|string|in:admin,bidder,property_owner',
+            'role'     => 'required|string|in:admin,bidder,property_owner',
         ]);
 
         if ($validator->fails()) {
@@ -23,10 +23,10 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role'     => $request->role,
         ]);
 
         return response()->json(['message' => 'User registered successfully'], 201);
@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -51,8 +51,8 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Login successful',
-            'token' => $token,
-            'user' => $user
+            'token'   => $token,
+            'user'    => $user
         ]);
     }
 
